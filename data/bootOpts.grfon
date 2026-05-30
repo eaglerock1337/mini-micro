@@ -1,0 +1,65 @@
+// Machine options (read when Mini Micro boots, before disks are loaded).
+
+// Whether to play the startup chime when the machine boots.
+startupChime: true
+
+// Whether to show the welcome text (including a handy tip!) on boot.
+welcome: true
+
+// Whether to allow a "cmd=" query parameter (web builds only).
+queryCmd: true
+
+// Whether to ignore the preferences that control what disk image is 
+// mounted as /usr by default.  If ignorePrefs is false (the default),
+// then the last disk the user mounted in any copy of Mini Micro will
+// be mounted again on launch.  If it's true, then it doesn't matter
+// what the user may have done in the past; we mount user.minidisk
+// next to the executable.  Default is false.
+ignorePrefs: false
+
+// You can force the second disk (/usr2) to mount a folder under the
+// application data folder (e.g. ~/Library/Application Support on Mac)
+// by setting the following to the name of the folder to use:
+//usr2appDataFolder: MiniMicro
+
+// Whether to allow control-C to interrupt a running program.  CAUTION:
+// if you set this to false, and your program enters an infinite loop,
+// then your only recourse will be to restart Mini Micro.
+controlC: true
+
+// Whether to show the disk slots in the bezel below the screen.
+// NOTE: this is ignored in web builds (where disk slots are never shown).
+diskSlots: true
+
+// Whether to show the "Mini Micro" sticker in the lower-right corner of the bezel.
+logoSticker: true
+
+// Whether to have a bezel at all.  Note that if you set this to false, then
+// you will get no disk slots or logo sticker regardless of the settings above.
+hasBezel: true
+
+// What image to use for the bezel.  This can be the name of one of the
+// built-in bezels ("3DBezel.png" or "FlatBezel.png"), or the name of a
+// PNG file located in the Streaming Assets folder next to this file.
+//bezelImage: ScratchedBezel.png
+
+// Tint color for the bezel.  Specify in HTML color format (same as Mini Micro
+// color literals): #RRGGBB, where RR, GG, and BB are hex values from 00 to FF.
+// Leave unspecified to get the standard Mini Micro beige bevel.
+// Note that alpha is not supported.
+//bezelTint: #8888FF
+
+// Color of the area surrounding the Mini Micro screen, if your window
+// doesn't match the standard 4:3 aspect ratio.  Default is #333333.
+//letterboxColor: #333333
+
+// Color to use for the "loading, please wait" image
+// (use #00000000 if you don't want it to show at all).
+loadingTint: #FFFFFF
+
+// To disable the onscreen keyboard, even when the window is taller than it
+// is wide, set onscreenKeyboard to false (defaults to true).
+//onscreenKeyboard: false
+
+// Uncomment the following line to set a custom title (instead of "Mini Micro").
+//windowTitle: My Mini Micro Game
