@@ -1,4 +1,4 @@
-.PHONY: default help run
+.PHONY: default help run package
 default: help
 
 # generate help info from comments: thanks to https://marmelab.com/blog/2016/02/29/auto-documented-makefile.html
@@ -7,3 +7,6 @@ help: ## help information about make commands
 
 run: ## run the Mini Micro
 	steam-run ./mm -screen-fullscreen 1 -usr "./disk" -usr2 "./tmsim"
+
+package: ## package tmsim as a distributable .minidisk
+	cd tmsim && zip -r ../tmsim.minidisk . -x '*.gitkeep' -x '*.git*'
