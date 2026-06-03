@@ -1,5 +1,5 @@
 nums = range(2, 12)
-rolls = 1000
+rolls = 100000
 result = [0, 0]
 
 for num in nums
