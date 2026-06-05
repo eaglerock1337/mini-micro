@@ -100,12 +100,111 @@ Player.writeToMap = function(ship, position, horizontal, checkOnly)
 	end for
 end function
 
-p = new Player
-p.init
-p.writeToMap "DDDD", "C4", true, false
-result = p.writeToMap("CCCCC", "F5", false, true)
-print result
-if result == null then
-	p.writeToMap "CCCCC", "F5", false, false
-end if
-p.print
+Player.placeShipByInput = function(name)
+	self.print
+	print
+	self.shipsLeft.push name
+	ship = shipTypes[name]
+	while true  // keep trying till we succeed
+		print "Placing " + name + " (size " + ship.len + ")."
+		pos = inputCoordinates("  Top-left coordinates? ")
+		hv = ""
+		while hv != "H" and hv != "V"
+			hv = input("  Horizontal or Vertical (H/V)? ").upper
+		end while
+		err = self.writeToMap(ship, pos, hv=="H", true)  // just check
+		if err then
+			print err + ".  Please try again!"
+		else
+			self.writeToMap ship, pos, hv == "H", false  // place ship
+			return
+		end if
+	end while
+end function
+
+Player.placeShipRandomly = function(name)
+	self.shipsLeft.push name
+	ship = shipTypes[name]
+	while true  // keep trying till we succeed
+		pos = cols[rnd * cols.len] + rows[rnd * rows.len]
+		horizontal = (rnd < 0.5)
+		err = self.writeToMap(ship, pos, horizontal, true)  // check
+		if err then continue
+		self.writeToMap ship, pos, horizontal, false  // place ship
+		return
+	end while
+end function
+
+// Fire at the other player's map.
+// Print HIT or MISS, and return the name of the ship sunk (if any)
+Player.fire = function(pos, otherPlayer)
+	if otherPlayer.myMap[pos] == EMPTY or otherPlayer.myMap[pos] == MISS then
+		print "Miss!"
+		otherPlayer.myMap[pos] = MISS
+		self.targetMap[pos] = MISS
+	else
+		print "HIT!"
+		wait
+		otherPlayer.myMap[pos] = HIT
+		self.targetMap[pos] = HIT
+		// Check for a ship that's been sunk.
+		// Every ship has a unique letter, so we know it's sunken if
+		// that letter is not found anywhere in the map.
+		for name in otherPlayer.shipsLeft
+			if otherPlayer.myMap.indexOf(name[0]) == null then
+				// This ship is not found, so it has been sunk.
+				otherPlayer.shipsLeft.remove otherPlayer.shipsLeft.indexOf(name)
+				return name
+			end if
+		end for
+	end if
+end function
+
+// Here is the "AI" of the game, that is, the code that decides
+// what to do on the computer's turn.
+ai = function()
+	while true  // repeat until we find spot we haven't tried
+		r = rows[rnd * rows.len]
+		c = cols[rnd * cols.len]
+		if comp.targetMap[c + r] == EMPTY then break
+	end while
+	print "I fire at " + c + r + "..."
+	sunk = comp.fire(c + r, human)
+	if sunk then print "Ha ha! I sunk your " + sunk + "!"
+end function
+
+// Set up the human player
+human = new Player
+human.init
+for s in shipTypes.indexes
+	human.placeShipByInput s  // (or placeShipRandomly to speed things up)
+end for
+human.print
+
+// Now set up the computer player
+comp = new Player
+comp.init
+for s in shipTypes.indexes
+	comp.placeShipRandomly s
+end for
+//comp.print  // <-- Just for debugging.  (No cheating!)
+
+// Main game loop
+while true
+	print
+	sunk = human.fire(inputCoordinates("Fire at coordinates: "), comp)
+	if sunk then print "You sunk my " + sunk + "!"
+	if not comp.shipsLeft then
+		print "You win. Good game!"
+		exit
+	end if
+	print
+	ai
+	ai  // (a second time, to make the game more challenging)
+	print
+	human.print
+	if not human.shipsLeft then
+		print "I win! Thanks for the game."
+		exit
+	end if
+end while
