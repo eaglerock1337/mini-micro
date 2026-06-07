@@ -1,13 +1,12 @@
-// parts.ms - Time machine components
+// parts.ms - time machine components class
 
 import "part"
 
-// Parts array
+// parts array
 
 Parts = {}
-Parts.
 
-// Critical parts
+// critical parts
 
 Parts.PowerUnit = new part.Part
 Parts.PowerUnit.name = "Power Distrib. Unit"
@@ -42,7 +41,7 @@ Parts.Computer = new part.Part
 Parts.Computer.name = "Mini Micro Computer"
 Parts.Computer.shortName = "Computr"
 
-// Auxillary Parts
+// auxillary Parts
 
 Parts.ThreatSensors = new part.Part
 Parts.ThreatSensors.name = "Threat Sensors"
@@ -76,24 +75,24 @@ Parts.SteamGenerator = new part.Part
 Parts.SteamGenerator.name = "Steam Generator"
 Parts.SteamGenerator.shortName = "StmGenr"
 
-// Part class functions
+// part class functions
 
 Parts.criticalParts = function
-  return [self.PowerUnit, self.ControlPanel, self.LifeSupport,
-    self.Airlock, self.TimeCircuits, self.FluxCapacitor,
-    self.Console, self.Computer]
+	return [self.PowerUnit, self.ControlPanel, self.LifeSupport,
+	  self.Airlock, self.TimeCircuits, self.FluxCapacitor,
+	  self.Console, self.Computer]
 end function
 
 Parts.auxillaryParts = function
-  return [self.ThreatSensors, self.WaterCollector,
-    self.FoodGenerator, self.InvisShield, self.HoverPropulsion,
-    self.ResonanceCoil, self.MrFusion, self.SteamGenerator]
+	return [self.ThreatSensors, self.WaterCollector,
+	  self.FoodGenerator, self.InvisShield, self.HoverPropulsion,
+	  self.ResonanceCoil, self.MrFusion, self.SteamGenerator]
 end function
 
 Parts.externalParts = function
-  return []
+	return []
 end function
 
 Parts.internalParts = function
-  return []
+	return []
 end function

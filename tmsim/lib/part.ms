@@ -1,6 +1,4 @@
-// part.ms - Generic Time Machine Parts
-
-// Generic part class
+// part.ms - generic time machine part class
 
 Part = {}
 
