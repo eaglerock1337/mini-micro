@@ -7,6 +7,7 @@ debug = true
 import "game"    // main menu loop
 import "player"  // player's character object
 import "sim"     // simulator loop
+import "tdos"    // computer os loop
 import "tm"      // time machine object
 
 // main routine

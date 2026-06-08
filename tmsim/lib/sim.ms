@@ -2,7 +2,6 @@
 
 import "actions"     // game actions
 import "time"				 // dates and times
-import "tdos"    // computer os loop
 
 startTime = new time.Time
 currentTime = new time.Time
