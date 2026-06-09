@@ -6,6 +6,9 @@ Stamper = new Sprite
 Stamper.frames = []  // (image for each frame of animation)
 Stamper.frames.push sheet.getImage(0, 128*3, 128, 128)
 Stamper.frames.push sheet.getImage(0, 128*2, 128, 128)
+Stamper.localBounds = new Bounds
+Stamper.localBounds.width = 128
+Stamper.localBounds.height = 128
 Stamper.target = {"x": 480, "y": 320}
 Stamper.lastStepTime = 0
 Stamper.curFrame = 0
@@ -27,6 +30,15 @@ display(4).sprites.push stampy
 stampy2 = new Stamper  // and he has a friend
 display(4).sprites.push stampy2
 stampy2.target = {"x": 800, "y": 100}
+
+stampy.update = function
+	super.update
+	if self.overlaps(stampy2) then
+		self.tint = color.red
+	else
+		self.tint = color.white
+	end if
+end function
 
 // Main loop: update sprites, and set target on mouse click
 while true
