@@ -93,6 +93,7 @@ Rocket.update = function(dt=0.1)
 		for i in range(1, 40)
 			p = new Ember
 			p.startColor = c
+			p.maxAge = rnd * 5 + 3
 			p.x = self.x
 			p.y = self.y
 			angle = 2 * pi * rnd
@@ -113,6 +114,7 @@ end function
 // embers that float down after the rocket bursts
 Ember = new Particle
 Ember.age = 0
+Ember.maxAge = 3
 Ember.gravity = -5
 Ember.dragFactor = 0.90
 Ember.startColor = color.pink
@@ -120,7 +122,7 @@ Ember.endColor = "#88000088"  // translucent red
 Ember.update = function(dt=0.1)
 	// age, adjust our color, and when it's time, die
 	self.age = self.age + dt
-	if self.age > 3 then
+	if self.age > self.maxAge then
 		self.die
 	else
 		// update our color
@@ -156,7 +158,7 @@ while true
 	// launch whenever the mouse is clicked
 	mouseIsDown = mouse.button
 	if mouseIsDown and not mouseWasDown then
-		launchAt mouse.x
+		launchAt mouse.x; launchAt mouse.x
 	end if
 	mouseWasDown = mouseIsDown
 	// update all particles
