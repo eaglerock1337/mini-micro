@@ -83,3 +83,76 @@ end function
 Tile.selected = function
 	return self.tint != Tile.tint
 end function
+// 2D array to keep track of the tiles that belong in each
+// row and column of the grid. Indexed by first column,
+// and within a column indexed bottom-up, so within a column
+// we can easily move soemthing and the rest shift down.
+grid = list.init2d(kCols, kRows)
+
+makeSprite = function(letter)
+	gfx.fillRect 0, 0, 40, 40, color.clear
+	drawBlock letter, 0, 0
+	spr = new Tile
+	spr.image = gfx.getImage(0, 0, 40, 40)
+	spr.letter = letter
+	return spr
+end function
+
+letterSprites = {}  // key: letter; value: Tile
+for code in range("A".code, "Z".code)
+	gfx.clear
+	c = char(code)
+	if c == "Q" then c = "Qu"
+	letterSprites[c] = makeSprite(c)
+end for
+gfx.clear
+
+display(4).mode = displayMode.sprite
+spriteDisp = display(4)
+spriteDisp.clear
+
+newTile = function(col, row)
+	tile = new letterSprites[randomLetter]
+	tile.target = {"x": 0, "y": 0}  // make sure tile has its own target map
+	spriteDisp.sprites.push tile
+	tile.goToGridPos col, row
+	tile.x = tile.target.x
+	tile.y = tile.target.y + 500 + 50 * rnd + 100 * row
+	grid[col][row] = tile
+	return tile
+end function
+
+for col in range(0, kCols-1)
+	for row in range(0, kRows-1)
+		newTile col, row
+	end for
+end for
+
+tileUnderMouse = function
+	for s in spriteDisp.sprites
+		if not s isa Tile then continue
+		if s.contains(mouse) then return s
+	end for
+end function
+
+wordInProgress = ""
+addToWord = function(tile)
+	globals.wordInProgress = wordInProgress + tile.letter
+	if lastTile != null then
+		overlay.line lastTile.x, lastTile.y, tile.x, tile.y, "#88FF8888", 5
+	end if
+	globals.lastTile = tile
+	tile.tint = color.aqua
+	tile.selected = true
+end function
+
+trackMouseOnTiles = function
+	while mouse.button
+		updateTime
+		yield
+		tile = tileUnderMouse
+		if tile == null or tile.selected then continue
+		if mathUtil.distance(tile, lastTile) > 150 then continue
+		addToWord tile
+	end while
+end function
