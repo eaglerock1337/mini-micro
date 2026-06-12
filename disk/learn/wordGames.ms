@@ -156,3 +156,103 @@ trackMouseOnTiles = function
 		addToWord tile
 	end while
 end function
+
+clearUsedTiles = function
+	for col in range(0, kCols-1)
+		// first iterate top-down, deleting any selected tiles
+		for row in range(kRows-1, 0)
+			tile = grid[col][row]
+			if tile == null or not tile.selected then continue
+			spriteDisp.sprites.removeVal tile  // remove sprite
+			grid[col].remove row  // remove used tile
+			grid[col].push null  // add empty spot to column
+		end for
+		// then iterate again bottom-up, adding new tiles
+		for row in range(0, kRows-1)
+			if grid[col][row] == null then
+				newTile col, row
+			else
+				grid[col][row].goToGridPos col, row
+			end if
+		end for
+	end for
+	overlay.clear
+	globals.lastTile = null
+end function
+
+deselectTiles = function
+	for col in range(0, kCols-1)
+		for row in range(0, kRows-1)
+			tile = grid[col][row]
+			tile.selected = false
+			tile.tint = Tile.tint
+		end for
+	end for
+	overlay.clear
+	globals.lastTile = null
+end function
+
+drawWord = function(word, valid)
+	if valid then c = color.aqua else c = color.teal
+	gfx.clear
+	gfx.print word, 480 - word.len / 2 * 20.5, 550, c, "large"
+end function
+
+score = 0
+wordsFound = []  // each element will be [word, points]
+scoreWord = function(word)
+	valid = words.contains(word)
+	drawWord word, valid
+	if not valid then return false
+	points = 2 ^ word.len
+	wordsFound.insert 0, [word, points]
+	text.row = 21
+	for w in wordsFound
+		print(w[0] + " " * 11)[:11] + (" " * 5 + w[1])[-5:]
+		if text.row < 2 then break
+	end for
+	globals.score = score + points
+	text.row = 25
+	print "SCORE: " + score
+	return true
+end function
+
+endTime = time + 120
+updateTime = function
+	timeLeft = ceil(endTime - time)
+	text.row = 25
+	text.column = 58
+	if timeLeft <= 0 then
+		print "TIME'S UP!"
+	else
+		mins = floor(timeLeft / 60)
+		secs = ("00" + (timeLeft % 60))[-2:]
+		print "TIME: " + mins + ":" + secs
+	end if
+end function
+
+lastTile = null
+while true
+	while Tile.updateAll; updateTime; yield; end while
+	if time > endTime then break
+	while not mouse.button; updateTime; yield; end while
+	tileHit = tileUnderMouse
+	if tileHit == null or tileHit.selected then continue
+	addToWord tileHit
+	trackMouseOnTiles
+	
+	if scoreWord(wordInProgress) then
+		sounds.daDing.play
+		clearUsedTiles
+	else
+		sounds.land.play
+		deselectTiles
+	end if
+	wordInProgress = ""
+end while
+
+s = "Final Score: " + score
+text.row = 2
+text.column = 34 - s.len / 2
+print s
+sounds.wow.play
