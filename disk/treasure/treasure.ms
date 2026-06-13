@@ -199,7 +199,7 @@ getTreasure = function(p, found)
 	drawTimeAndScore
 	wait 0.5
 	globals.treasuresLeft = treasuresLeft - 1
-	if not treasuresLeft then gameWom
+	if not treasuresLeft then gameWon
 end function
 
 // Reveal the given grid position. If it's a bomb,
