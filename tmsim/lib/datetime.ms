@@ -3,3 +3,4 @@
 test = function
     if debug then print ("datetime loaded")
 end function
+test

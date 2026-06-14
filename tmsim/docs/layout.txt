@@ -1,26 +1,26 @@
 +------------------------------------------------------------------+
 | TDOS v0.1.0                                                      |
-+--INVENTORY--+----------------------------------------------------+
-| Logs    250 |                                                    |
-| Trash   250 |                                                    |
-| Food    250 |                                                    |
-| Water   50l |                                                    |
-+-CRIT-PARTS--+                                                    |
-| PwrUnit  ON |                                                    |
-| CtrPanl  ON |                                                    |
-| LifSupp  ON |                                                    |
-| AirLock OPN |                                                    |
-| TimeCir  ON |                                                    |
-| FluxCap  ON |                                                    |
-| Console  ON |                                                    |
-| Computr  ON |                                                    |
-+--AUX-PARTS--+                                                    |
-| Sensors  ON |                                                    |
-| WtrColl  ON |                                                    |
-| FoodGen  ON |                                                    |
-| Shields  ON |                                                    |
-| HovProp OFF |                                                    |
-| TesCoil OFF |                                                    |
-| Mr.Fusn OFF |                                                    |
-| StmGenr OFF |                                                    |
-+-------------+----------------------------------------------------+
+|----INVENTORY-----------------------------------------------------+
+| Logs        250 |                                                |
+| Trash       250 |                                                |
+| Food        250 |                                                |
+| Water       50l |                                                |
+|-CRITICAL-PARTS--|                                                |
+| Power Unit   ON |                                                |
+| Ctrl Panel   ON |                                                |
+| Life Supp.   ON |                                                |
+| Air Lock    OPN |                                                |
+| Time Circ's  ON |                                                |
+| Flux Capac.  ON |                                                |
+| Console      ON |                                                |
+| Computer     ON |                                                |
++-AUXILLARY-PARTS-+                                                |
+| Sensors      ON |                                                |
+| Water Supp.  ON |                                                |
+| Food Synth   ON |                                                |
+| Inv. Shield  ON |                                                |
+| Hover Props OFF |                                                |
+| Tesla Coil  OFF |                                                |
+| Mr. Fusion  OFF |                                                |
+| Steam Genr. OFF |                                                |
++-----------------+------------------------------------------------+

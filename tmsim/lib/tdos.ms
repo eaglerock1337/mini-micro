@@ -8,7 +8,8 @@ console = console.Console
 
 run = function
 	if debug then print("tdos.run")
+	screen.useConsole
 	console.reset
-	print("start date: " + sessionStart.date)
-	print("start time: " + sessionStart.time)
+	screen.consoleBody.print("start date: " + sessionStart.date)
+	screen.consoleBody.print("start time: " + sessionStart.time)
 end function
