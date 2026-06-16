@@ -1,14 +1,10 @@
 // console.ms - time machine console & tui
 
-import "commands"
-
 Console = {}
 Console.width = 68
 Console.height = 26
 Console.side = 17
 Console.body = 48
-
-Console.commands = commands.commandList
 
 Console.reset = function
 	if debug then print("Console.reset")
