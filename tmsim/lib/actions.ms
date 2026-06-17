@@ -1,5 +1,9 @@
 // actions.ms - player game actions
 
-test = function
-    if debug then print("actions loaded")
+lookaway = function
+    if debug then print("lookaway placeholder")
+end function
+
+reboot = function
+    if debug then print("reboot placeholder")
 end function
