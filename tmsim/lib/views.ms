@@ -6,8 +6,9 @@ import "view"
 Views = {}
 
 Views.init = function
-    self.viewList = {}
-    viewList.append(View.init("inside",
+    v = new Views
+    v.viewList = {}
+    v.viewList.append(View.init("inside",
         {
             header: "Inside the Time Machine",
             text: "You are sitting inside the time machine. The controls are in front of you.",
@@ -23,7 +24,7 @@ Views.init = function
             "Pause the simulation": @actions.pause
         }
     ))
-    viewList.append(View.init("outside",
+    v.viewList.append(View.init("outside",
         {
             header: "Outside the Time Machine",
             text: "You are standing outside the time machine.",
@@ -35,7 +36,7 @@ Views.init = function
             "Pause the simulation": @actions.pause
         }
     ))
-    return viewList
+    return v
 end function
 
 Views.run = function(view)

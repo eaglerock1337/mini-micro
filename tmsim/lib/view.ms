@@ -3,12 +3,12 @@
 View = {}
 
 View.init = function(name, textMap, actionMap)
-    view = {}
-    view.name = name
-    view.textMap = textMap
-    view.actionMap = actionMap
-    view.active = false
-    return view
+    v = new View
+    v.name = name
+    v.textMap = textMap
+    v.actionMap = actionMap
+    v.active = false
+    return v
 end function
 
 View.run = function

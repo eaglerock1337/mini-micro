@@ -6,7 +6,7 @@ import "screen"     // mini micro displays
 import "clock"      // time and duration classes
 
 sessionStart = new clock.Time
-console = console.Console
+console = new console.Console
 
 run = function
 	active = true

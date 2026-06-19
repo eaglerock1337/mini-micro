@@ -18,7 +18,7 @@ bg = function; return display(7); end function
 reset = function
     clear
     if debug then
-        debugText.color = gruvbox.orange
+        debugText.color = gruvbox.bg
     else
         debugText.mode displayMode.off
     end if

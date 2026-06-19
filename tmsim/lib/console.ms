@@ -40,14 +40,26 @@ Console.drawHeaderLine = function(row)
 	screen.consoleBorder.print "|" + " " * (self.width-2) + "|", ""
 end function
 
-Console.drawSideLine = function(row, char = "-")
+Console.drawLine = function(row, sideChar = " ", bodyChar = " ")
 	self.goToXY(@screen.consoleBorder, row)
-	screen.consoleBorder.print "|" + char * self.side + "|" + " " * self.body + "|", ""
+	screen.consoleBorder.print "|" + sideChar * self.side + "|" + bodyChar * self.body + "|", ""
+end function
+
+Console.drawSideHeader = function(row)
+	self.drawLine(row, "-", " ")
+end function
+
+Console.drawBodyHeader = function(row)
+    self.drawLine(row, " ", "-")
+end function
+
+Console.drawDoubleHeader = function(row)
+    self.drawLine(row, "-", "-")
 end function
 
 Console.drawBodyLines = function(row, count = 1)
 	for i in range(row, row - count + 1)
-		self.drawSideLine(i, " ")
+		self.drawLine(i, " ", " ")
 	end for
 end function
 
@@ -56,10 +68,12 @@ Console.drawBorder = function
 	self.drawHeaderLine(24)
 	self.drawBorderLine(23)
 	self.drawBodyLines(22, 4)
-	self.drawSideLine(18)
+	self.drawSideHeader(18)
 	self.drawBodyLines(17, 8)
-	self.drawSideLine(9)
-	self.drawBodyLines(8, 8)
+	self.drawSideHeader(9)
+	self.drawBodyLines(8, 6)
+    self.drawBodyHeader(2)
+    self.drawLine(1)
 	self.drawBorderLine(0)
 end function
 

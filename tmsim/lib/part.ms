@@ -12,4 +12,3 @@ Part.wear = 0.0
 Part.tear = 0.0
 Part.condition = "off"
 Part.faulty = false
-
