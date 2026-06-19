@@ -1,5 +1,8 @@
 // game.ms - main tmsim game loop
 
+import "player"
+import "sim"
+
 difficulty = 1
 
 init = function

@@ -3,16 +3,16 @@
 View = {}
 
 View.init = function(name, textMap, actionMap)
-  view = {}
-  view.name = name
-  view.textMap = textMap
-  view.actionMap = actionMap
-  view.active = false
-  return view
+    view = {}
+    view.name = name
+    view.textMap = textMap
+    view.actionMap = actionMap
+    view.active = false
+    return view
 end function
 
 View.run = function
-    if debug then print("View.run")
+    if debug then print "View.run"
     self.active = true
     self.validate
 

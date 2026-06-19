@@ -1,5 +1,8 @@
 // console.ms - time machine console & tui
 
+import "gruvbox"
+import "screen"
+
 Console = {}
 Console.width = 68
 Console.height = 26
@@ -7,7 +10,7 @@ Console.side = 17
 Console.body = 48
 
 Console.reset = function
-	if debug then print("Console.reset")
+	if debug then print "Console.reset"
 	
 	screen.consoleBody.clear
 	screen.consoleBody.color = gruvbox.aqua
@@ -20,25 +23,25 @@ Console.reset = function
 	self.drawBorder
 end function
 
-Console.goToXY = function(row)
-	screen.consoleBorder.column = 0
-	screen.consoleBorder.row = row
+Console.goToXY = function(display, row, column=0)
+	display.column = column
+	display.row = row
 end function
 
 Console.drawBorderLine = function(row)
-	self.goToXY(row)
+	self.goToXY(@screen.consoleBorder, row)
 	screen.consoleBorder.print "+" + "-" * (self.width-2), ""
 	screen.consoleBorder.setCell self.width-1, row, "+"
 	screen.consoleBorder.setCellColor self.width-1, row, gruvbox.blue
 end function
 
 Console.drawHeaderLine = function(row)
-	self.goToXY(row)
+	self.goToXY(@screen.consoleBorder, row)
 	screen.consoleBorder.print "|" + " " * (self.width-2) + "|", ""
 end function
 
 Console.drawSideLine = function(row, char = "-")
-	self.goToXY(row)
+	self.goToXY(@screen.consoleBorder, row)
 	screen.consoleBorder.print "|" + char * self.side + "|" + " " * self.body + "|", ""
 end function
 
@@ -58,4 +61,27 @@ Console.drawBorder = function
 	self.drawSideLine(9)
 	self.drawBodyLines(8, 8)
 	self.drawBorderLine(0)
+end function
+
+Console.prompt = function
+    if debug then print "Console.prompt"
+    yield  // allow refresh before input
+    
+    // use screen.debugText layer to get input to work correctly
+    curRow = screen.debugText.row
+    curCol = screen.debugText.column
+    curColor = screen.debugText.color
+	self.goToXY(@screen.debugText, 1, self.width - self.body)
+    screen.debugText.print " " * self.body    
+	self.goToXY(@screen.debugText, 1, self.width - self.body)
+    screen.debugText.color = gruvbox.aqua
+	command = input("> ")
+    text = screen.debugText
+
+    // put debugText layer back how it was
+    screen.debugText.row = curRow
+    screen.debugText.column = curCol
+    screen.debugText.color = curColor
+    if debug then print "prompt: '" + command + "'"
+    return command
 end function

@@ -1,6 +1,7 @@
 // sim.ms - time machine simulator loop
 
 import "actions"     // game actions
+import "tdos"
 import "time"				 // dates and times
 
 startTime = new time.Time
@@ -11,6 +12,7 @@ currentView = "console"
 paused = true
 
 console = function
+	if debug then print "actions.console"
 	tdos.sessionStart = currentTime
 	tdos.run
 end function
@@ -41,12 +43,16 @@ viewList = {
 
 run = function
 	paused = false
-	if debug then print("sim.run")
-	actions.test
+	if debug then print "sim.run"
+	actions.lookaway
+	actions.reboot
+	if debug then print "paused = " + paused
 	while paused == false
+		print 
 		if not viewList.hasIndex(currentView) then
-			print("sim.run: view not found: " + currentView)
+			print "sim.run: view not found: " + currentView 
 			exit
 		end if
+		viewList[currentView]
 	end while
 end function

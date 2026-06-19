@@ -2,18 +2,17 @@
 
 import "actions"
 
-list = []
-list["lookaway"] = {
+map = {}
+map["lookaway"] = {
     "text": "look away from the console screen",
-    "action": @actions.lookaway
+    "action": @actions.lookaway,
 }
 
-list["reboot"] = {
+map["reboot"] = {
     "text": "reboot the time machine computer",
-    "action": @actions.reboot
+    "action": @actions.reboot,
 }
 
 run = function(cmd)
-    if debug then print("commands.run(" + cmd + ")")
-    list[cmd].run
+    map[cmd]["action"]
 end function

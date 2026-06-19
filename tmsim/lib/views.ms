@@ -1,5 +1,6 @@
 // views.ms - time machine simulator main view class
 
+import "actions"
 import "view"
 
 Views = {}
@@ -38,6 +39,6 @@ Views.init = function
 end function
 
 Views.run = function(view)
-    if debug then print("Views.run: " & view.name)
+    if debug then print "Views.run: " & view.name
     self.viewList[view].run
 end function

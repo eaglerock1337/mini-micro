@@ -1,15 +1,6 @@
 // screen.ms - game display layer singleton
 
-// reset displays
-
-reset = function
-    clear
-    if debug then
-        display(3).color = gruvbox.bg
-    else
-        display(3).mode displayMode.off
-    end if
-end function
+import "gruvbox"
 
 // displays
 
@@ -22,6 +13,16 @@ gfx = function; return display(5); end function
 tile = function; return display(6); end function
 bg = function; return display(7); end function
 
+// reset displays
+
+reset = function
+    clear
+    if debug then
+        debugText.color = gruvbox.orange
+    else
+        debugText.mode displayMode.off
+    end if
+end function
 
 // display switching routines
 
@@ -54,6 +55,6 @@ end function
 
 // entrypoint at load time
 
-if debug then print("screen loaded")
+if debug then print "screen loaded"
 reset
 useMainDisplay

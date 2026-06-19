@@ -1,17 +1,23 @@
 // tdos.ms - computer emulator game loop
 
-import "commands"		  // tdos command list
-import "console"      // console mode with tui
-import "time"					// date and time class
+import "commands"   // tdos command list
+import "console"    // console mode with tui
+import "screen"     // mini micro displays
+import "time"       // date and time class
 
 sessionStart = new time.Time
 console = console.Console
-commands = commands.Commands.init
 
 run = function
-	if debug then print("tdos.run")
+	active = true
+	if debug then print "tdos.run"
 	screen.useConsole
 	console.reset
-	screen.consoleBody.print("start date: " + sessionStart.date)
-	screen.consoleBody.print("start time: " + sessionStart.time)
+
+	while active
+		command = console.prompt
+		if commands.map.hasIndex(command) then
+			commands.run(command)
+		end if
+	end while
 end function
