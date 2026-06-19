@@ -1,12 +1,13 @@
 // sim.ms - time machine simulator loop
 
-import "actions"     // game actions
-import "tdos"
-import "time"				 // dates and times
+import "actions"    // game actions
+import "tdos"       // tdos computer
+import "clock"      // dates and times
 
-startTime = new time.Time
-currentTime = new time.Time
-goalTime = new time.Time
+startTime = new clock.Time
+firstTravelTime = new clock.Time
+currentTime = new clock.Time
+goalTime = new clock.Time
 timeElapsed = 0
 currentView = "console"
 paused = true

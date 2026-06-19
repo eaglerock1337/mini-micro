@@ -30,8 +30,7 @@ Used where you need more than one instance of something.
 |---------------|-----------|--------------------------------------------|
 | `view.ms`     | `View`    | individual view instance (label-to-action menus) |
 | `console.ms`  | `Console` | console/TUI instance, created by tdos      |
-| `time.ms`     | `Time`    | date/time instances (`new time.Time`)      |
-| `datetime.ms` | —         | date/time support                          |
+| `clock.ms`    | `Clock`   | date/time instances (`new clock.Clock`); wraps `_dateVal`/`_dateStr` intrinsics |
 | `part.ms`     | `Part`    | individual time machine part               |
 | `parts.ms`    | —         | part definitions/collection                |
 

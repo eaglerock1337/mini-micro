@@ -20,7 +20,7 @@ Items marked **(TBD)** are still fluid and may change as the design firms up.
 - **No needless abstraction.** Patterns (state machine, factory) only when they
   genuinely earn their keep on a tiny runtime.
 - **Single source of truth.** Skill/failure rolls live in one place (`dice`),
-  date math in one place (`date`), save encoding in one place (`savefile`).
+  date/time math in one place (`clock`), save encoding in one place (`savefile`).
 
 ## three control loops
 
@@ -55,7 +55,7 @@ tdos.ms   TDOS loop           — the in-world computer; REALTIME to the SECOND,
 | `tm`     | TimeMachine | energy, currentYear/targetYear, all Parts + ordered lists   |
 | `sim`    | Sim         | session state + simulator loop; `sim.actions`, `sim.views`  |
 | `tdos`   | TDOS        | realtime computer-interface state + loop (TUI for now)      |
-| `date`   | Date        | single source of date/day math (day increment, etc.)        |
+| `clock`  | Clock       | date/time instances; wraps `_dateVal`/`_dateStr` intrinsics |
 
 One active game lives in memory at a time. Loading a game repopulates these
 globals; a fresh game resets them to defaults.
@@ -76,7 +76,7 @@ the `Foo.Foo` double-name.
 module when called (`tm.travel`). This also avoids a `tm = new TimeMachine` name
 collision with the module variable. `init` resets for a new game; `fromMap` loads
 saved state into the same map (no reference swapping). Applies to `player`, `tm`,
-`sim`, `tdos`, `date`.
+`sim`, `tdos`.
 
 ```
 // tm.ms  ->  global `tm`
@@ -155,10 +155,10 @@ current view, rng seed, and `sim.screenTime` — see TDOS below). Time here is
 ### `tdos.ms` — realtime computer loop
 
 Entered from the "look at screen" view. This is a distinct loop because it runs
-**realtime to the second**, off the Mini Micro `time` module (the same clock the
-sim uses to measure elapsed time). It makes the in-world computer feel real.
+**realtime to the second**, off the Mini Micro `time` intrinsic (the same clock
+the sim uses to measure elapsed time). It makes the in-world computer feel real.
 
-- **On entry**, snapshot `sim.screenTime` (a `time` timestamp) and start at a
+- **On entry**, snapshot `sim.screenTime` (a `clock.Clock` instance) and start at a
   random second within the current minute, then tick forward. The delta gives
   game time to the second. The display shows date + time to the second.
 - Precise time shows **only when the computer is healthy**; degraded hardware
@@ -217,7 +217,7 @@ lib/
   tm.ms         TimeMachine -> global tm; owns Part instances + ordered lists
   part.ms       Part — wear/tear/runtime/condition; addWear/addTear; fail rolls
   computer.ms   Computer composite part (CPU/RAM/NPU/backplane/clock/storage...)
-  date.ms       Date — single source of date/day math; feeds aggro
+  clock.ms      Clock — date/time class; wraps _dateVal/_dateStr intrinsics
   dice.ms       roll engine — check(stat, difficulty) -> success + degree
   difficulty.ms presets (energy mult, start year, aggro/fail/degrade rates, part set)
   savefile.ms   globals <-> disk; profile-per-minidisk; game-history catalog file
@@ -230,7 +230,8 @@ lib/
   them to defaults.
 - Mini Micro ships a `json` standard lib, so saving is `json` over each global's
   `toMap` output, and loading is `fromMap` back into the same global maps.
-- The save walks `player`, `tm`, `sim` (loose state), `tdos` state, and `date`.
+- The save walks `player`, `tm`, `sim` (loose state), and `tdos` state. Clock
+instances are saved/loaded as raw numeric values (`Clock._v`).
 - `savefile.ms` is the only place that knows the on-disk format, so it can change
   without touching the model.
 

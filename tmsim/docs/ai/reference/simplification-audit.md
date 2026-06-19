@@ -57,11 +57,10 @@ end for
 for one concept — the same duplication the actions-commands doc resolves. Pick
 one (the `views.ms` registry) and have `sim` dispatch through it. ~-20 lines.
 
-## 3. datetime.ms is a dead stub
+## 3. ~~datetime.ms is a dead stub~~ DONE
 
-Only a `test` function and a bare `test` call that prints. `time.ms` imports it
-but never uses it. Delete the file and the `import "datetime"` line until real
-date math exists. ~-7 lines.
+Replaced by `clock.ms`, which wraps `_dateVal`/`_dateStr` intrinsics directly.
+No `import "dateTime"` needed.
 
 ## 4. Parts.externalParts / internalParts return []
 
@@ -69,8 +68,8 @@ Empty placeholders. Delete until something fills them. ~-4 lines.
 
 ## 5. test / load-print debug stubs
 
-Scaffolding noise that proves nothing: `actions.test`, `Time.test`,
-`Stats.init` (only prints), `datetime.test`, and call sites like `sim.run`
+Scaffolding noise that proves nothing: `actions.test`, `Clock.test`,
+`Stats.init` (only prints), and call sites like `sim.run`
 calling `actions.test`. Remove as the real code lands. ~-12 lines.
 
 ## 6. two bootstraps

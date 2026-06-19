@@ -1,4 +1,4 @@
-// time.ms - time and date class
+// clock.ms - time and date class
 
 import "dateTime"
 
@@ -22,4 +22,12 @@ end function
 
 Time.time = function
 	return (" " + self.hour)[-2:] + ":" + ("0" + self.minute)[-2:]
+end function
+
+Duration = {}
+
+Duration.init = function(val)
+    dur = new Duration
+    dur.val = val
+    return dur
 end function

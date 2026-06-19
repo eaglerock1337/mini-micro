@@ -3,9 +3,9 @@
 import "commands"   // tdos command list
 import "console"    // console mode with tui
 import "screen"     // mini micro displays
-import "time"       // date and time class
+import "clock"      // time and duration classes
 
-sessionStart = new time.Time
+sessionStart = new clock.Time
 console = console.Console
 
 run = function
