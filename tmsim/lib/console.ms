@@ -30,52 +30,52 @@ Console.goToXY = function(display, row, column=0)
 end function
 
 Console.drawBorderLine = function(row)
-	self.goToXY(@screen.consoleBorder, row)
+	self.goToXY @screen.consoleBorder, row
 	screen.consoleBorder.print "+" + "-" * (self.width-2), ""
 	screen.consoleBorder.setCell self.width-1, row, "+"
 	screen.consoleBorder.setCellColor self.width-1, row, gruvbox.blue
 end function
 
 Console.drawHeaderLine = function(row)
-	self.goToXY(@screen.consoleBorder, row)
+	self.goToXY @screen.consoleBorder, row
 	screen.consoleBorder.print "|" + " " * (self.width-2) + "|", ""
 end function
 
 Console.drawLine = function(row, sideChar = " ", bodyChar = " ")
-	self.goToXY(@screen.consoleBorder, row)
+	self.goToXY @screen.consoleBorder, row
 	screen.consoleBorder.print "|" + sideChar * self.side + "|" + bodyChar * self.body + "|", ""
 end function
 
 Console.drawSideHeader = function(row)
-	self.drawLine(row, "-", " ")
+	self.drawLine row, "-", " "
 end function
 
 Console.drawBodyHeader = function(row)
-    self.drawLine(row, " ", "-")
+    self.drawLine row, " ", "-"
 end function
 
 Console.drawDoubleHeader = function(row)
-    self.drawLine(row, "-", "-")
+    self.drawLine row, "-", "-"
 end function
 
 Console.drawBodyLines = function(row, count = 1)
 	for i in range(row, row - count + 1)
-		self.drawLine(i, " ", " ")
+		self.drawLine i, " ", " "
 	end for
 end function
 
 Console.drawBorder = function
-	self.drawBorderLine(25)
-	self.drawHeaderLine(24)
-	self.drawBorderLine(23)
-	self.drawBodyLines(22, 4)
-	self.drawSideHeader(18)
-	self.drawBodyLines(17, 8)
-	self.drawSideHeader(9)
-	self.drawBodyLines(8, 6)
-    self.drawBodyHeader(2)
-    self.drawLine(1)
-	self.drawBorderLine(0)
+	self.drawBorderLine 25
+	self.drawHeaderLine 24
+	self.drawBorderLine 23 
+	self.drawBodyLines 22, 4
+	self.drawSideHeader 18
+	self.drawBodyLines 17, 8
+	self.drawSideHeader 9
+	self.drawBodyLines 8, 6
+    self.drawBodyHeader 2
+    self.drawLine 1
+	self.drawBorderLine 0
 end function
 
 Console.drawTitle = function
@@ -96,9 +96,9 @@ Console.prompt = function
     curRow = screen.debugText.row
     curCol = screen.debugText.column
     curColor = screen.debugText.color
-	self.goToXY(@screen.debugText, 1, self.width - self.body)
+	self.goToXY @screen.debugText, 1, self.width - self.body
     screen.debugText.print " " * self.body    
-	self.goToXY(@screen.debugText, 1, self.width - self.body)
+	self.goToXY @screen.debugText, 1, self.width - self.body
     screen.debugText.color = gruvbox.aqua
 	command = input("> ")
     text = screen.debugText
