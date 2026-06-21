@@ -30,19 +30,19 @@ Console.goToXY = function(display, row, column=0)
 end function
 
 Console.drawBorderLine = function(row)
-	self.goToXY @screen.consoleBorder, row
+	self.goToXY screen.consoleBorder, row
 	screen.consoleBorder.print "+" + "-" * (self.width-2), ""
 	screen.consoleBorder.setCell self.width-1, row, "+"
 	screen.consoleBorder.setCellColor self.width-1, row, gruvbox.blue
 end function
 
 Console.drawHeaderLine = function(row)
-	self.goToXY @screen.consoleBorder, row
+	self.goToXY screen.consoleBorder, row
 	screen.consoleBorder.print "|" + " " * (self.width-2) + "|", ""
 end function
 
 Console.drawLine = function(row, sideChar = " ", bodyChar = " ")
-	self.goToXY @screen.consoleBorder, row
+	self.goToXY screen.consoleBorder, row
 	screen.consoleBorder.print "|" + sideChar * self.side + "|" + bodyChar * self.body + "|", ""
 end function
 
@@ -79,11 +79,11 @@ Console.drawBorder = function
 end function
 
 Console.drawTitle = function
-    self.goToXY @screen.consoleData, 24, 2
+    self.goToXY screen.consoleData, 24, 2
     screen.consoleData.print "TDOS v" + version
-    self.goToXY @screen.consoleData, 24, self.width - self.body
+    self.goToXY screen.consoleData, 24, self.width - self.body
     screen.consoleData.print sim.currentTime.fullDate
-    self.goToXY @screen.consoleData, 24, self.width - 13
+    self.goToXY screen.consoleData, 24, self.width - 13
     screen.consoleData.print ("     " + sim.currentTime.time)[-11:]
 end function
 
@@ -96,9 +96,9 @@ Console.prompt = function
     curRow = screen.debugText.row
     curCol = screen.debugText.column
     curColor = screen.debugText.color
-	self.goToXY @screen.debugText, 1, self.width - self.body
+	self.goToXY screen.debugText, 1, self.width - self.body
     screen.debugText.print " " * self.body    
-	self.goToXY @screen.debugText, 1, self.width - self.body
+	self.goToXY screen.debugText, 1, self.width - self.body
     screen.debugText.color = gruvbox.aqua
 	command = input("> ")
     text = screen.debugText
