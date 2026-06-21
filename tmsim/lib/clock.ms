@@ -4,7 +4,7 @@ import "dateTime"
 
 Time = {}
 
-Time.val = "1985-10-26 01:24:00"
+Time.val = "1985-10-26 13:24:00"
 
 Time.set = function(newTime)
     self.val = newTime
@@ -19,7 +19,11 @@ Time.date = function
 end function
 
 Time.time = function
-    return _dateStr(self.val, "HH:mm:ss")
+    return _dateStr(self.val, "h:mm:ss tt")
+end function
+
+Time.fullDate = function
+    return _dateStr(self.val, "dddd, MMMM dd, yyyy")
 end function
 
 Duration = {}

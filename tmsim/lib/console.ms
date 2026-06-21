@@ -2,6 +2,7 @@
 
 import "gruvbox"
 import "screen"
+import "tm"
 
 Console = {}
 Console.width = 68
@@ -77,11 +78,21 @@ Console.drawBorder = function
 	self.drawBorderLine(0)
 end function
 
+Console.drawTitle = function
+    self.goToXY @screen.consoleData, 24, 2
+    screen.consoleData.print "TDOS v" + version
+    self.goToXY @screen.consoleData, 24, self.width - self.body
+    screen.consoleData.print sim.currentTime.fullDate
+    self.goToXY @screen.consoleData, 24, self.width - 13
+    screen.consoleData.print ("     " + sim.currentTime.time)[-11:]
+end function
+
 Console.prompt = function
     if debug then print "Console.prompt"
     yield  // allow refresh before input
     
     // use screen.debugText layer to get input to work correctly
+    self.drawTitle
     curRow = screen.debugText.row
     curCol = screen.debugText.column
     curColor = screen.debugText.color
